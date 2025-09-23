@@ -1,9 +1,8 @@
-using GLB.Util.GameObject;
+using GLB.Util;
 using GLB.Collections.Generic;
 
 namespace GLB.Logic
 {
-
     public interface IWork
     {
         WorkQueue.WorkResult Do(GameObjectContext goContext);
@@ -26,7 +25,7 @@ namespace GLB.Logic
             public int Count { get; set; }
         }
 
-        private readonly PrioritySequence<WorkEntity, int> _workQueue = new();
+        private readonly PrioritySequence<WorkEntity, int> _workSequence = new();
         private readonly List<(WorkEntity Entity, int Priority)> _enqueueBuffer = new();
 
         public void Enqueue(IWork work, int count, int priority)
@@ -40,26 +39,27 @@ namespace GLB.Logic
             if (_enqueueBuffer.Count > 0)
             {
                 foreach (var (entity, prio) in _enqueueBuffer)
-                    _workQueue.Enqueue(entity, prio);
+                    _workSequence.Enqueue(entity, prio);
                 _enqueueBuffer.Clear();
             }
 
-            if (_workQueue.Count == 0)
+            if (_workSequence.Count == 0)
                 return;
 
-            foreach (var element in _workQueue)
+            for (int i = 0; i < _workSequence.Count; ++i)
             {
-                var workingEntity = element.Item1;
+                var workingEntity = _workSequence[i];
                 var result = workingEntity.Work.Do(goContext);
 
                 switch (result)
                 {
                     case WorkResult.CONTINUE:
-                        break;
+                        return;
                     case WorkResult.END:
-                        break;
+                        _workSequence.RemoveAt(i);
+                        return;
                     case WorkResult.ERROR:
-                        break;
+                        throw new Exception("work returns error : " + workingEntity);
                     case WorkResult.PASS:
                         break;
                 }
