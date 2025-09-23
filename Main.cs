@@ -9,7 +9,7 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            new test_OpenPriorityQueue((str)=>Console.Write(str), true);
+            new test_PrioritySequence((str)=>Console.Write(str), true);
         }
     }
 }

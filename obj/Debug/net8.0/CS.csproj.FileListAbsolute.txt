@@ -26,3 +26,4 @@ C:\Users\dove3\Desktop\Codes\CS\GameLogicBase\obj\Debug\net8.0\refint\CS.dll
 C:\Users\dove3\Desktop\Codes\CS\GameLogicBase\obj\Debug\net8.0\CS.pdb
 C:\Users\dove3\Desktop\Codes\CS\GameLogicBase\obj\Debug\net8.0\CS.genruntimeconfig.cache
 C:\Users\dove3\Desktop\Codes\CS\GameLogicBase\obj\Debug\net8.0\ref\CS.dll
+C:\Users\dove3\Desktop\Codes\CS\GameLogicBase\obj\Debug\net8.0\CS.sourcelink.json
